@@ -1,0 +1,8 @@
+build/
+notes/
+
+playing_with_SDL2.exe
+
+*.o
+*.swp
+*~
