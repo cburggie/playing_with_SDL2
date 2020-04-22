@@ -46,7 +46,6 @@ test: ${TST}
 clean:
 	rm -f ${OBJ}
 	rm -f ${EXE}
-	rmdir ${BD}
 
 ${BD}:
 	mkdir -p $@

@@ -14,6 +14,7 @@ static const char * text = "Hello, world!";
 static const int font_size = 20;
 static const int window_width = 640;
 static const int window_height = 400;
+static const Uint32 frame_delay_ms = 10; //25 fps
 
 
 
@@ -23,10 +24,28 @@ static void log(const char * s)
 }
 
 
+static void loop()
+{
+	static int dy = 1;
+	static int dx = 1;
+	if (rect.y + dy < 0 ||
+			rect.y + rect.h + dy > window_height)
+	{
+		dy *= -1;
+	}
+
+	if (rect.x + dx < 0 ||
+			rect.x + rect.w + dx > window_width)
+	{
+		dx *= -1;
+	}
+	rect.y += dy;
+	rect.x += dx;
+}
+
 
 static void render()
 {
-	SDL_SetRenderDrawColor(renderer,0,0,0,255);
 	SDL_RenderClear(renderer);
 	SDL_RenderCopy(renderer,texture,NULL,&rect);
 	SDL_RenderPresent(renderer);
@@ -34,9 +53,30 @@ static void render()
 
 
 
+
+static Uint32 FrameUpdateAndRenderEventID = 0;
+static Uint32 FrameUpdateAndRenderEventPusher(Uint32 interval, void* param)
+{
+	SDL_Event event;
+	SDL_UserEvent userevent;
+
+	userevent.type = SDL_USEREVENT;
+	userevent.code = FrameUpdateAndRenderEventID;
+	userevent.data1 = NULL;
+	userevent.data2 = NULL;
+
+	event.type = SDL_USEREVENT;
+	event.user = userevent;
+
+	SDL_PushEvent(&event);
+	return interval;
+}
+
+
+
 int main(int argc, char * argv[])
 {
-	if (SDL_Init(SDL_INIT_VIDEO |SDL_INIT_EVENTS) < 0)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_TIMER) < 0)
 	{
 		log("SDL_Init() failed");
 		return -1;
@@ -47,7 +87,8 @@ int main(int argc, char * argv[])
 			SDL_WINDOWPOS_UNDEFINED,
 			SDL_WINDOWPOS_UNDEFINED,
 			window_width, window_height,
-			SDL_WINDOW_RESIZABLE
+			//SDL_WINDOW_RESIZABLE
+			0
 		);
 
 	if (window == NULL)
@@ -58,6 +99,7 @@ int main(int argc, char * argv[])
 	}
 
 	renderer = SDL_CreateRenderer(window, -1, 0);
+	SDL_SetRenderDrawColor(renderer,0,0,0,255);
 
 	if (renderer == NULL)
 	{
@@ -97,21 +139,44 @@ int main(int argc, char * argv[])
 	rect.x = 0; rect.y = 0;
 	font.getSize(text,&rect);
 
+
+	//setup a timer to create a SDL_USEREVENT every 40ms
+	FrameUpdateAndRenderEventID = SDL_RegisterEvents(1);
+	SDL_TimerID FrameUpdateAndRenderTimer = SDL_AddTimer(
+				frame_delay_ms,
+				FrameUpdateAndRenderEventPusher,
+				NULL
+			);
+
+	if (FrameUpdateAndRenderTimer == 0)
+	{
+		log("SDL_AddTimer() failed");
+	}
+
 	//run while no SDL_Quit event is created
 	SDL_Event event;
 	bool running = true;
 	while (running)
 	{
-		while (SDL_PollEvent(&event))
+		render();
+
+		SDL_WaitEvent(&event);
+		switch (event.type)
 		{
-			if (event.type == SDL_QUIT)
-			{
+			case SDL_QUIT:
 				running = false;
 				break;
-			}
+			case SDL_USEREVENT:
+				if (event.user.type == FrameUpdateAndRenderEventID)
+				{
+					loop();
+					render();
+				}
+				break;
+			default:
+				break;
 		}
 
-		render();
 	}
 
 	cburggie::Font::Quit();
