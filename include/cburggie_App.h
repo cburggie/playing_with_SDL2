@@ -2,7 +2,14 @@
 #define _CBURGGIE_APP_H
 
 #include <cburggie.h>
+
+
+
+#ifdef WIN32
+#include <sdl2.2.0.5\build\native\include\SDL.h>
+#else
 #include <SDL2/SDL.h>
+#endif
 
 namespace cburggie
 {

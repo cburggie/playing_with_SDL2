@@ -1,10 +1,18 @@
-
+#ifdef WIN32
+#include <sdl2.2.0.5\build\native\include\SDL.h>
+#else
 #include <SDL2/SDL.h>
+#endif
+
 #include <iostream>
 
 #include <cburggie_Font.h>
 
+#ifdef WIN32
+static const char * font_path = "c:\\windows\\fonts\\DejaVuSansMono.ttf";
+#else
 static const char * font_path = "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf";
+#endif
 
 static SDL_Window * window = NULL;
 static SDL_Renderer * renderer = NULL;

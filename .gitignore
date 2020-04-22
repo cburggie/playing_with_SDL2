@@ -7,3 +7,8 @@ playing_with_SDL2
 *.o
 *.swp
 *~
+/.vs
+/Debug
+/packages
+/test.*
+/packages.config

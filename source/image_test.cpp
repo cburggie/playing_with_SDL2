@@ -1,5 +1,10 @@
+#ifdef WIN32
+#include <sdl2.2.0.5\build\native\include\SDL.h>
+#include <sdl2_image.v140.2.0.1\build\native\include\SDL_image.h>
+#else
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#endif
 
 static SDL_Window * window = NULL;
 static SDL_Renderer * renderer = NULL;
@@ -17,7 +22,7 @@ static void render()
 }
 
 
-int main(int argc, char * argv[])
+int main1(int argc, char * argv[])
 {
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS);
 	IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
