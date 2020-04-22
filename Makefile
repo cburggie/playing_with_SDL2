@@ -5,7 +5,7 @@ ID   = include
 BD   = build
 
 # files to install
-EXE  = playing_with_SDL2.exe
+EXE  = playing_with_SDL2
 
 # header file
 HDR  = ${ID}/cburggie.h

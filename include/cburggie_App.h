@@ -1,15 +1,16 @@
 #ifndef _CBURGGIE_APP_H
 #define _CBURGGIE_APP_H
 
+#include <cburggie.h>
+#include <SDL2/SDL.h>
+
 namespace cburggie
 {
 	class App
 	{
-/*
 		private:
 			bool Running;
-			SDL_Window * window;
-			SDL_Renderer * renderer;
+			Window * window;
 
 		protected:
 			Logger logger;
@@ -17,15 +18,14 @@ namespace cburggie
 		public:
 			App();
 			~App();
-			OnInit();
-			OnExecute();
-			OnCleanup();
+			int OnInit();
+			int OnExecute();
+			int OnCleanup();
 
 		protected:
-			OnEvent(SDL_Event * Event);
-			OnLoop();
-			OnRender();
-*/
+			int OnEvent(SDL_Event * Event);
+			int OnLoop();
+			int OnRender();
 	};
 }
 
