@@ -18,9 +18,11 @@ TST  = image_test
 
 # object files to build
 OBJ  = ${BD}/main.o
+OBJ += ${BD}/constants.o
 OBJ += ${BD}/App.o
 OBJ += ${BD}/Font.o
 OBJ += ${BD}/Logger.o
+OBJ += ${BD}/Window.o
 
 LIB  = -L/usr/lib
 LIB += -lpthread
@@ -60,6 +62,9 @@ ${BD}/image_test.o: ${SD}/image_test.cpp
 ${BD}/main.o: ${SD}/main.cpp ${HDR}
 	${CC} -o $@ -c $<
 
+${BD}/constants.o: ${SD}/constants.cpp ${HDR}
+	${CC} -o $@ -c $<
+
 ${BD}/App.o: ${SD}/App/App.cpp ${HDR}
 	${CC} -o $@ -c $<
 
@@ -68,3 +73,7 @@ ${BD}/Font.o: ${SD}/Font/Font.cpp ${HDR}
 
 ${BD}/Logger.o: ${SD}/Logger/Logger.cpp ${HDR}
 	${CC} -o $@ -c $<
+
+${BD}/Window.o: ${SD}/Window/Window.cpp ${HDR}
+	${CC} -o $@ -c $<
+

@@ -20,13 +20,24 @@ namespace cburggie
 			~Window();
 			int close();
 
+			//associate an element to this window
+			//the pointer is now owned by this object
 			int addElement(Element * element);
 
+			//set the background color of the window
 			int setBackgroundColor(SDL_Color c);
+
+			//draw solid color to window
 			int clear();
+
+			//call update() on all associated elements
 			int updateAll();
+
+			//draw all associated elements to this screen
 			int drawAll();
-			int present();
+
+			//update all changes drawn since last call to the screen
+			void present();
 
 	};
 }

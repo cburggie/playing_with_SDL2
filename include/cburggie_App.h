@@ -13,7 +13,7 @@ namespace cburggie
 			Window * window;
 
 		protected:
-			Logger logger;
+			//Logger logger;
 
 		public:
 			App();

@@ -7,8 +7,8 @@ namespace cburggie
 	{
 		extern const char * window_title;
 		extern const char * font_path;
-		extern const char * window_width;
-		extern const char * window_height;
+		extern const int window_width;
+		extern const int window_height;
 	}
 
 	class App;
