@@ -23,6 +23,7 @@ OBJ += ${BD}/App.o
 OBJ += ${BD}/Font.o
 OBJ += ${BD}/Logger.o
 OBJ += ${BD}/Window.o
+OBJ += ${BD}/Element.o
 
 LIB  = -L/usr/lib
 LIB += -lpthread
@@ -77,3 +78,5 @@ ${BD}/Logger.o: ${SD}/Logger/Logger.cpp ${HDR}
 ${BD}/Window.o: ${SD}/Window/Window.cpp ${HDR}
 	${CC} -o $@ -c $<
 
+${BD}/Element.o: ${SD}/Element/Element.cpp ${HDR}
+	${CC} -o $@ -c $<

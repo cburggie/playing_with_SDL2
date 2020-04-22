@@ -22,7 +22,7 @@ namespace cburggie
 			~Element();
 			int close();
 
-			int setRenderingContext(Window & window);
+			int setRenderingContext(SDL_Renderer * renderer);
 			int createFromImageFile(const char * path);
 			int createFromSurface(SDL_Surface * surface);
 			int createFromText(Font & font, const char * text);
@@ -35,6 +35,8 @@ namespace cburggie
 			int getDrawHeight() const;
 
 			int setDrawPosition(int y, int x);
+			int moveDrawPosition(int dy, int dx);
+
 			int setDrawSize(int width, int height);
 			int setDrawScaleFactor(double s);
 

@@ -66,7 +66,7 @@ int cburggie::Window::close()
 int cburggie::Window::addElement(Element* element)
 {
 	elements.push_back(element);
-	return 0;
+	return element->setRenderingContext(renderer);
 }
 
 
