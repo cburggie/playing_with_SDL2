@@ -106,7 +106,11 @@ int main(int argc, char * argv[])
 
 
 	//init SDL2_image
+	#ifndef WIN32
 	int imgflags = IMG_INIT_JPG | IMG_INIT_TIF;
+	#else
+	int imgflags = IMG_INIT_PNG | IMG_INIT_JPG | IMG_INIT_TIF;
+	#endif
 	if (IMG_Init(imgflags) != imgflags)
 	{
 		cburggie::logger("IMG_Init() failed");
