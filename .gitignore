@@ -12,3 +12,5 @@ playing_with_SDL2
 /packages
 /test.*
 /packages.config
+*.sln
+*.vcxproj*

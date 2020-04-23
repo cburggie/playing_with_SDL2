@@ -1,5 +1,6 @@
 #ifdef WIN32
 #include <sdl2.2.0.5\build\native\include\SDL.h>
+#include <sdl2_image.v140.2.0.1\build\native\include\SDL_image.h>
 #else
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -8,12 +9,6 @@
 #include <iostream>
 
 #include <cburggie.h>
-
-#ifdef WIN32
-static const char * font_path = "c:\\windows\\fonts\\DejaVuSansMono.ttf";
-#else
-static const char * font_path = "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf";
-#endif
 
 /*
 static SDL_Window * window = NULL;
@@ -33,7 +28,7 @@ static const Uint32 frame_delay_ms = 20;
 static int dx = 2, dy = 2;
 
 #ifdef WIN32
-static const char * image_path = "";
+static const char * image_path = "E:\\Programming Projects\\playing_with_SDL2\\Debug\\image.jpg";
 #else
 static const char * image_path = "image.png";
 #endif
@@ -111,7 +106,7 @@ int main(int argc, char * argv[])
 
 
 	//init SDL2_image
-	int imgflags = IMG_INIT_PNG | IMG_INIT_JPG | IMG_INIT_TIF;
+	int imgflags = IMG_INIT_JPG | IMG_INIT_TIF;
 	if (IMG_Init(imgflags) != imgflags)
 	{
 		cburggie::logger("IMG_Init() failed");
@@ -124,7 +119,7 @@ int main(int argc, char * argv[])
 	//init SDL2_ttf
 	cburggie::Font::Init();
 	cburggie::Font font;
-	font.open(*window, font_path, font_size);
+	font.open(*window, cburggie::constants::font_path, font_size);
 
 
 
