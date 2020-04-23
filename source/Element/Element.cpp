@@ -1,5 +1,9 @@
 #include <cburggie.h>
+#ifdef WIN32
+#include <sdl2_image.v140.2.0.1\build\native\include\SDL_image.h>
+#else
 #include <SDL2/SDL_image.h>
+#endif
 #include <string>
 
 cburggie::Element::Element()
