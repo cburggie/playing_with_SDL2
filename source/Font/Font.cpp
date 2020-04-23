@@ -44,10 +44,12 @@ int cburggie::Font::Quit()
 {
 	if (!module_initialized)
 	{
+		cburggie::logger("cburggie::Font::Quit() called when not initialized");
 		return -1;
 	}
 
 	TTF_Quit();
+	module_initialized = false;
 	return 0;
 }
 
@@ -68,18 +70,13 @@ cburggie::Font::Font()
 
 cburggie::Font::~Font()
 {
-	if (font != NULL)
-	{
-		TTF_CloseFont(font);
-		font = NULL;
-	}
 
 	renderer = NULL;
 }
 
 
 
-int cburggie::Font::openFont(cburggie::Window & window, const char * path, int font_size)
+int cburggie::Font::open(cburggie::Window & window, const char * path, int font_size)
 {
 	if (font != NULL)
 	{
@@ -101,6 +98,16 @@ int cburggie::Font::openFont(cburggie::Window & window, const char * path, int f
 	this->font_size = font_size;
 	font_height = TTF_FontHeight(font) + TTF_FontLineSkip(font);
 
+	return 0;
+}
+
+
+int cburggie::Font::close()
+{
+	if (font == NULL) return -1;
+
+	TTF_CloseFont(font);
+	font = NULL;
 	return 0;
 }
 

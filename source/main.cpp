@@ -57,23 +57,6 @@ static void loop()
 	}
 
 	text->moveDrawPosition(dy,dx);
-	/*
-	static int dy = 1;
-	static int dx = 1;
-	if (rect.y + dy < 0 ||
-			rect.y + rect.h + dy > window_height)
-	{
-		dy *= -1;
-	}
-
-	if (rect.x + dx < 0 ||
-			rect.x + rect.w + dx > window_width)
-	{
-		dx *= -1;
-	}
-	rect.y += dy;
-	rect.x += dx;
-	*/
 }
 
 
@@ -85,11 +68,6 @@ static void render()
 	window->clear();
 	window->drawAll();
 	window->present();
-	/*
-	SDL_RenderClear(renderer);
-	SDL_RenderCopy(renderer,texture,NULL,&rect);
-	SDL_RenderPresent(renderer);
-	*/
 }
 
 
@@ -146,7 +124,7 @@ int main(int argc, char * argv[])
 	//init SDL2_ttf
 	cburggie::Font::Init();
 	cburggie::Font font;
-	font.openFont(*window, font_path, font_size);
+	font.open(*window, font_path, font_size);
 
 
 
@@ -162,6 +140,8 @@ int main(int argc, char * argv[])
 	//create Element object from Font and string
 	text = window->createElement();
 	text->createFromText(font, message_text);
+
+	font.close();
 
 
 	//setup a timer to create a SDL_USEREVENT regularly
@@ -212,8 +192,6 @@ int main(int argc, char * argv[])
 	SDL_RemoveTimer(FrameUpdateAndRenderTimer);
 
 	cburggie::logger("calling cburggie::Window::close()...");
-	text = NULL;
-	image = NULL;
 	window->close(); //deletes all associated elements
 
 	cburggie::logger("deleting cburggie::Window object...");
@@ -228,13 +206,9 @@ int main(int argc, char * argv[])
 	cburggie::logger("calling SDL_Quit()...");
 	SDL_Quit();
 
-	/* OLD
-	cburggie::Font::Quit();
-	SDL_DestroyTexture(texture);
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
-	SDL_Quit();
-	*/
+	window = NULL;
+	text = NULL;
+	image = NULL;
 
 	cburggie::logger("ending program");
 	return 0;

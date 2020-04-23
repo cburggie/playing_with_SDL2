@@ -31,7 +31,7 @@ LIB += -lSDL2_image
 # compiler and options
 CFLG = -Wall
 CINC = -I${ID}
-COPT = ${CFLG} ${CINC}
+COPT = ${CFLG} ${CINC} -g
 CC   = g++ ${COPT}
 
 
