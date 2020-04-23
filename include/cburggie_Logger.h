@@ -3,13 +3,14 @@
 
 namespace cburggie
 {
+	void logger(const char * text);
+	/*
 	class Logger
 	{
-/*
 		private:
 		public:
-*/
 	};
+	*/
 }
 
 #endif

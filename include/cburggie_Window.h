@@ -20,12 +20,18 @@ namespace cburggie
 			~Window();
 			int close();
 
+			//getters and setters
+			SDL_Renderer * getRenderingContext();
+			int getWidth() const;
+			int getHeight() const;
+			int setSize(int w, int h);
+
 			//associate an element to this window
 			//the pointer is now owned by this object
 			int addElement(Element * element);
 
 			//set the background color of the window
-			int setBackgroundColor(SDL_Color c);
+			int setBackgroundColor(int r = 0, int g = 0, int b = 0, int a = 255);
 
 			//draw solid color to window
 			int clear();

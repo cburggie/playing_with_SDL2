@@ -13,9 +13,6 @@ HDR += ${ID}/cburggie_App.h
 HDR += ${ID}/cburggie_Font.h
 HDR += ${ID}/cburggie_Logger.h
 
-# tests
-TST  = image_test
-
 # object files to build
 OBJ  = ${BD}/main.o
 OBJ += ${BD}/constants.o
@@ -41,8 +38,6 @@ CC   = g++ ${COPT}
 # recipes
 all: ${EXE}
 
-test: ${TST}
-
 clean:
 	rm -f ${OBJ}
 	rm -f ${EXE}
@@ -52,9 +47,6 @@ ${BD}:
 
 ${EXE}: ${BD} ${OBJ} ${HDR}
 	${CC} -o $@ ${OBJ} ${LIB}
-
-image_test: ${BD}/image_test.o
-	${CC} -o $@ $< ${LIB}
 
 ${BD}/image_test.o: ${SD}/image_test.cpp
 	${CC} -o $@ -c $<

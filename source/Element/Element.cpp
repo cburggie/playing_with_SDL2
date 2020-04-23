@@ -14,11 +14,13 @@ cburggie::Element::Element()
 
 cburggie::Element::~Element()
 {
+	cburggie::logger("calling cburggie::Element::~Element()");
 	if (texture != NULL)
 	{
 		close();
 	}
 	texture = NULL;
+	renderer = NULL;
 }
 
 
@@ -140,6 +142,8 @@ int cburggie::Element::getWidth() const      { return width; }
 int cburggie::Element::getHeight() const     { return height; }
 int cburggie::Element::getDrawWidth() const  { return draw_rect.w; }
 int cburggie::Element::getDrawHeight() const { return draw_rect.h; }
+int cburggie::Element::getDrawX() const      { return draw_rect.x; }
+int cburggie::Element::getDrawY() const      { return draw_rect.y; }
 
 
 

@@ -1,7 +1,6 @@
 
-#include <cburggie_Font.h>
-
-
+#include <cburggie.h>
+#include <string>
 
 #ifdef WIN32
 #include <sdl2.2.0.5\build\native\include\SDL.h>
@@ -11,14 +10,15 @@
 #include <SDL2/SDL_ttf.h>
 #endif
 
-#include <string>
 
 
 // ##### STATIC MEMBERS #####
 bool cburggie::Font::module_initialized = false;
-int cburggie::Font::object_count = 0;
 
 
+
+
+// ##### OBJECT MEMBERS #####
 
 int cburggie::Font::Init()
 {
@@ -42,7 +42,7 @@ bool cburggie::Font::isInit()
 
 int cburggie::Font::Quit()
 {
-	if (!module_initialized || object_count > 0)
+	if (!module_initialized)
 	{
 		return -1;
 	}
@@ -57,7 +57,6 @@ int cburggie::Font::Quit()
 // ##### NON-STATIC MEMBERS #####
 cburggie::Font::Font()
 {
-	object_count++;
 	font_height = 0;
 	font_size = 0;
 	font = NULL;
@@ -69,7 +68,6 @@ cburggie::Font::Font()
 
 cburggie::Font::~Font()
 {
-	object_count--;
 	if (font != NULL)
 	{
 		TTF_CloseFont(font);
@@ -81,7 +79,7 @@ cburggie::Font::~Font()
 
 
 
-int cburggie::Font::openFont(SDL_Renderer *r, const char * path, int font_size)
+int cburggie::Font::openFont(cburggie::Window & window, const char * path, int font_size)
 {
 	if (font != NULL)
 	{
@@ -99,7 +97,7 @@ int cburggie::Font::openFont(SDL_Renderer *r, const char * path, int font_size)
 		return -1;
 	}
 
-	renderer = r;
+	renderer = window.getRenderingContext();
 	this->font_size = font_size;
 	font_height = TTF_FontHeight(font) + TTF_FontLineSkip(font);
 

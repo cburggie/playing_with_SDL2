@@ -33,6 +33,8 @@ namespace cburggie
 
 			int getDrawWidth() const;
 			int getDrawHeight() const;
+			int getDrawX() const;
+			int getDrawY() const;
 
 			int setDrawPosition(int y, int x);
 			int moveDrawPosition(int dy, int dx);
