@@ -1,6 +1,9 @@
 build/
 notes/
 
+
+playing_with_SDL2
+
 *.o
 *.swp
 *~
