@@ -151,8 +151,7 @@ int main(int argc, char * argv[])
 
 
 	//create Element object from image
-	image = new cburggie::Element();
-	window->addElement(image);
+	image = window->createElement();
 	image->createFromImageFile(image_path);
 
 	//set Window size to image size
@@ -161,75 +160,11 @@ int main(int argc, char * argv[])
 
 
 	//create Element object from Font and string
-	text = new cburggie::Element();
-	window->addElement(text);
+	text = window->createElement();
 	text->createFromText(font, message_text);
 
 
-
-
-
-	/*
-	window = SDL_CreateWindow(
-			"cburggie::Font test",
-			SDL_WINDOWPOS_UNDEFINED,
-			SDL_WINDOWPOS_UNDEFINED,
-			window_width, window_height,
-			//SDL_WINDOW_RESIZABLE
-			0
-		);
-
-	if (window == NULL)
-	{
-		cburggie::logger("SDL_CreateWindow() failed");
-		SDL_Quit();
-		return -1;
-	}
-
-	renderer = SDL_CreateRenderer(window, -1, 0);
-	SDL_SetRenderDrawColor(renderer,0,0,0,255);
-
-	if (renderer == NULL)
-	{
-		cburggie::logger("SDL_CreateRenderer() failed");
-		SDL_DestroyWindow(window);
-		SDL_Quit();
-		return -1;
-	}
-
-	//initialize font system and create a font object
-	cburggie::Font::Init();
-	cburggie::Font font;
-
-
-	//open font file and exit if failure
-	if (font.openFont(renderer,font_path,font_size))
-	{
-		cburggie::logger("cburggie:Font::openFont() failed");
-		SDL_DestroyRenderer(renderer);
-		SDL_DestroyWindow(window);
-		SDL_Quit();
-		return 1;
-	}
-
-	//render text to a SDL_Texture object, exit if failure
-	texture = font.renderText(text);
-	if (texture == NULL)
-	{
-		cburggie::logger("cburggie::Font::renderText() failed");
-		cburggie::Font::Quit();
-		SDL_DestroyRenderer(renderer);
-		SDL_DestroyWindow(window);
-		SDL_Quit();
-	}
-
-	//setup the position rectangle for the texture
-	rect.x = 0; rect.y = 0;
-	font.getSize(text,&rect);
-	*/
-
-
-	//setup a timer to create a SDL_USEREVENT every 40ms
+	//setup a timer to create a SDL_USEREVENT regularly
 	FrameUpdateAndRenderEventID = SDL_RegisterEvents(1);
 	SDL_TimerID FrameUpdateAndRenderTimer = SDL_AddTimer(
 				frame_delay_ms,
@@ -268,13 +203,17 @@ int main(int argc, char * argv[])
 			default:
 				break;
 		}
-
 	}
 
+
+
+	//clean up and exit
 	cburggie::logger("calling SDL_RemoveTimer...");
 	SDL_RemoveTimer(FrameUpdateAndRenderTimer);
 
 	cburggie::logger("calling cburggie::Window::close()...");
+	text = NULL;
+	image = NULL;
 	window->close(); //deletes all associated elements
 
 	cburggie::logger("deleting cburggie::Window object...");

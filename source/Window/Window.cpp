@@ -98,6 +98,12 @@ int cburggie::Window::setSize(int w, int h)
 
 
 
+cburggie::Element * cburggie::Window::createElement()
+{
+	cburggie::Element * e = new cburggie::Element();
+	addElement(e);
+	return e;
+}
 
 
 int cburggie::Window::addElement(Element* element)

@@ -28,6 +28,7 @@ namespace cburggie
 
 			//associate an element to this window
 			//the pointer is now owned by this object
+			Element * createElement();
 			int addElement(Element * element);
 
 			//set the background color of the window
