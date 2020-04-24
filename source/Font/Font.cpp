@@ -85,7 +85,7 @@ int cburggie::Font::open(cburggie::Window & window, const char * path, int font_
 		font = NULL;
 	}
 
-	font = TTF_OpenFont(path.c_str(), font_size);
+	font = TTF_OpenFont(path, font_size);
 
 	if (font == NULL)
 	{
