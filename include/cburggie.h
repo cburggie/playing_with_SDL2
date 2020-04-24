@@ -1,5 +1,6 @@
 #ifndef _CBURGGIE_H
 #define _CBURGGIE_H
+#include <string>
 
 namespace cburggie
 {

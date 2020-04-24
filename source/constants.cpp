@@ -1,4 +1,5 @@
 #include <cburggie.h>
+#include <string>
 
 const char * cburggie::constants::window_title = "Playing With SDL2!";
 #ifdef WIN32

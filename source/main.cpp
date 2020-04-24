@@ -7,6 +7,7 @@
 #endif
 
 #include <iostream>
+#include <string>
 
 #include <cburggie.h>
 

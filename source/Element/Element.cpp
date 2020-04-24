@@ -64,6 +64,12 @@ int cburggie::Element::setRenderingContext(SDL_Renderer* renderer)
 
 
 
+int cburggie::Element::createFromImageFile(const std::string & path)
+{
+	return this->createFromImageFile(path.c_str());
+}
+
+
 
 int cburggie::Element::createFromImageFile(const char * path)
 {
@@ -109,6 +115,11 @@ int cburggie::Element::createFromSurface(SDL_Surface* surface)
 
 
 
+int cburggie::Element::createFromText(Font & font, const std::string & text)
+{
+	return createFromText(font,text.c_str());
+}
+
 int cburggie::Element::createFromText(Font & font, const char * text)
 {
 	if (text == NULL) return -1;
@@ -129,14 +140,6 @@ int cburggie::Element::createFromText(Font & font, const char * text)
 	return 0;
 }
 
-
-
-
-
-int cburggie::Element::createFromText(Font & font, const std::string & text)
-{
-	return createFromText(font,text.c_str());
-}
 
 
 
