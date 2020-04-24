@@ -110,7 +110,7 @@ int cburggie::Element::createFromSurface(SDL_Surface* surface)
 
 
 int cburggie::Element::createFromText(Font & font, const std::string & text) { return createFromText(text.c_str); }
-int cburggie::Element::createFromText(Font & font, const string * text)
+int cburggie::Element::createFromText(Font & font, const char * text)
 {
 	if (text.empty()) return -1;
 
