@@ -4,7 +4,8 @@
 
 namespace cburggie
 {
-	void logger(const std::string text);
+	void logger(const char * text);
+	void logger(const std::string & text);
 	/*
 	class Logger
 	{
