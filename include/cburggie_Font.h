@@ -42,7 +42,7 @@ namespace cburggie
 			int close();
 			void setColor(SDL_Color c);
 			int getHeight() const; //gets height of rendered text in pixels
-			void getSize(const char * text, SDL_Rect * r)
+			void getSize(const char * text, SDL_Rect * r);
 			void getSize(const std::string text, SDL_Rect* r);
 			int getFontSize() const;
 			SDL_Texture * renderText(const char * text) const;
