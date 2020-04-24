@@ -133,14 +133,6 @@ int cburggie::Element::createFromText(Font & font, const std::string text)
 
 
 
-int cburggie::Element::createFromText(Font & font, const std::string & text)
-{
-	return createFromText(font,text.c_str());
-}
-
-
-
-
 
 int cburggie::Element::getWidth() const      { return width; }
 int cburggie::Element::getHeight() const     { return height; }

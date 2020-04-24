@@ -144,7 +144,7 @@ SDL_Texture * cburggie::Font::renderText(const std::string text) const
 
 
 
-SDL_Texture * cburggie::Font::renderText(const std::string &text) const
+SDL_Texture * cburggie::Font::renderText(const std::string text) const
 {
 	return renderText(text.c_str());
 }
