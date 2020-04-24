@@ -131,7 +131,7 @@ void cburggie::Font::getSize(const char * text, SDL_Rect* r)
 
 
 SDL_Texture * cburggie::Font::renderText(const std::string & text) const { return renderText(text.c_str()); }
-SDL_Texture * cburggie::Font::renderText(const const char * text) const
+SDL_Texture * cburggie::Font::renderText(const char * text) const
 {
 	SDL_Surface * s = NULL;
 	SDL_Texture * t = NULL;
