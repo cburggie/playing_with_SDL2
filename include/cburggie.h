@@ -6,8 +6,8 @@ namespace cburggie
 {
 	namespace constants
 	{
-		extern const std::string window_title;
-		extern const std::string font_path;
+		extern const char * window_title;
+		extern const char * font_path;
 		extern const int min_window_width;
 		extern const int window_width;
 		extern const int min_window_height;
