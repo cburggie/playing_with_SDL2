@@ -76,7 +76,7 @@ cburggie::Font::~Font()
 
 
 
-int cburggie::Font::open(cburggie::Window & window, const char * path, int font_size)
+int cburggie::Font::open(cburggie::Window & window, const std::string path, int font_size)
 {
 	if (font != NULL)
 	{
@@ -84,7 +84,7 @@ int cburggie::Font::open(cburggie::Window & window, const char * path, int font_
 		font = NULL;
 	}
 
-	font = TTF_OpenFont(path, font_size);
+	font = TTF_OpenFont(path.c_str(), font_size);
 
 	if (font == NULL)
 	{
@@ -122,18 +122,18 @@ int cburggie::Font::getHeight() const
 }
 
 
-void cburggie::Font::getSize(const char* text, SDL_Rect* r)
+void cburggie::Font::getSize(const std::string text, SDL_Rect* r)
 {
-	TTF_SizeText(font,text,&r->w,&r->h);
+	TTF_SizeText(font,text.c_str(),&r->w,&r->h);
 }
 
 
-SDL_Texture * cburggie::Font::renderText(const char * text) const
+SDL_Texture * cburggie::Font::renderText(const std::string text) const
 {
 	SDL_Surface * s = NULL;
 	SDL_Texture * t = NULL;
 
-	s = TTF_RenderText_Blended(font,text,color);
+	s = TTF_RenderText_Blended(font,text.c_str(),color);
 	if (s == NULL) return NULL;
 	
 	t = SDL_CreateTextureFromSurface(renderer,s);

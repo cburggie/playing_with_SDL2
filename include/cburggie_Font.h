@@ -37,14 +37,13 @@ namespace cburggie
 		public:
 			Font();
 			~Font();
-			int open(Window & window, const char * path, int font_size = 12); //returns -1 on fail
+			int open(Window & window, const std::string path, int font_size = 12); //returns -1 on fail
 			int close();
 			void setColor(SDL_Color c);
 			int getHeight() const; //gets height of rendered text in pixels
-			void getSize(const char* text, SDL_Rect* r);
+			void getSize(const std::string text, SDL_Rect* r);
 			int getFontSize() const;
-			SDL_Texture * renderText(const char * text) const;
-			SDL_Texture * renderText(const std::string &text) const;
+			SDL_Texture * renderText(const std::string text) const;
 	};
 }
 

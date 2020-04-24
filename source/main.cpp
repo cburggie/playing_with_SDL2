@@ -7,6 +7,7 @@
 #endif
 
 #include <iostream>
+#include <string>
 
 #include <cburggie.h>
 
@@ -22,15 +23,15 @@ static cburggie::Window * window = NULL;
 static cburggie::Element * image = NULL;
 static cburggie::Element * text = NULL;
 
-static const char * message_text = "Hello, world!";
+static const std::string message_text = "Hello, world!";
 static const int font_size = 20;
 static const Uint32 frame_delay_ms = 20;
 static int dx = 2, dy = 2;
 
 #ifdef WIN32
-static const char * image_path = "E:\\Programming Projects\\playing_with_SDL2\\Debug\\image.jpg";
+static const std::string image_path = "E:\\Programming Projects\\playing_with_SDL2\\Debug\\image.jpg";
 #else
-static const char * image_path = "image.png";
+static const std::string image_path = "image.png";
 #endif
 
 

@@ -65,9 +65,9 @@ int cburggie::Element::setRenderingContext(SDL_Renderer* renderer)
 
 
 
-int cburggie::Element::createFromImageFile(const char * path)
+int cburggie::Element::createFromImageFile(const std::string path)
 {
-	SDL_Surface * surface = IMG_Load(path);
+	SDL_Surface * surface = IMG_Load(path.c_str());
 
 	int retval = createFromSurface(surface);
 
@@ -109,9 +109,9 @@ int cburggie::Element::createFromSurface(SDL_Surface* surface)
 
 
 
-int cburggie::Element::createFromText(Font & font, const char * text)
+int cburggie::Element::createFromText(Font & font, const std::string text)
 {
-	if (text == NULL) return -1;
+	if (text.empty()) return -1;
 
 	if (texture != NULL) close();
 
