@@ -23,9 +23,11 @@ namespace cburggie
 			int close();
 
 			int setRenderingContext(SDL_Renderer * renderer);
+			int createFromImageFile(const char * path);
 			int createFromImageFile(const std::string path);
 			int createFromSurface(SDL_Surface * surface);
-			int createFromText(Font & font, const std::string text);
+			int createFromText(Font & font, const char * text);
+			int createFromText(Font & font, const std::string & text);
 
 			int getWidth() const;
 			int getHeight() const;
