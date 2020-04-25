@@ -7,7 +7,6 @@
 #include <cburggie.h>
 #include <forward_list>
 #include <array>
-#include <iostream>
 #include <functional>
 
 // private variables
