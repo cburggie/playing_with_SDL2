@@ -81,9 +81,21 @@ int main(int argc, char * argv[])
 		cburggie::logger("SDL_Init() failed");
 		return -1;
 	}
+	EventHandler::RegisterEvent(EventHandler::event::SDL_QUIT, [] {
+		cburggie::logger("calling SDL_Quit()...");
+		SDL_Quit();
+	});
+
 
 	//create Window object
 	window = new cburggie::Window();
+	EventHandler::RegisterEvent(EventHandler::event::SDL_QUIT, [] {
+		cburggie::logger("calling cburggie::Window::close()...");
+		window->close(); //deletes all associated elements
+
+		cburggie::logger("deleting cburggie::Window object...");
+		delete window;
+	});
 
 
 
@@ -99,6 +111,11 @@ int main(int argc, char * argv[])
 		SDL_Quit();
 		return -1;
 	}
+	EventHandler::RegisterEvent(EventHandler::event::SDL_QUIT, [] {
+		cburggie::logger("calling IMG_Quit()...");
+		IMG_Quit();
+	});
+
 
 
 
@@ -106,6 +123,10 @@ int main(int argc, char * argv[])
 	cburggie::Font::Init();
 	cburggie::Font font;
 	font.open(*window, cburggie::constants::font_path, font_size);
+	EventHandler::RegisterEvent(EventHandler::event::SDL_QUIT, [] {
+		cburggie::logger("calling cburggie::Font::Quit()...");
+		cburggie::Font::Quit();
+	});
 
 
 
@@ -134,6 +155,10 @@ int main(int argc, char * argv[])
 		},
 		nullptr
 	);
+	EventHandler::RegisterEvent(EventHandler::event::SDL_QUIT, [FrameUpdateAndRenderTimer] {
+		cburggie::logger("calling SDL_RemoveTimer...");
+		SDL_RemoveTimer(FrameUpdateAndRenderTimer);
+	});
 
 	EventHandler::RegisterEvent(EventHandler::event::FRAME_UPDATE, [] {
 		loop();
@@ -143,29 +168,18 @@ int main(int argc, char * argv[])
 	EventHandler::RegisterEvent(EventHandler::event::WALL_COLLIDE, [] {
 		std::cout << "boop\n";
 	});
-	
+
+	EventHandler::RegisterEvent(EventHandler::event::SDL_QUIT, [](SDL_Event* e) {
+		std::cout << e->quit.timestamp << "\n";
+		std::cout << "quit1\n";
+	});
+	EventHandler::RegisterEvent(EventHandler::event::SDL_QUIT, [] {
+		std::cout << "quit2\n";
+	});
 	render();
 
 	EventHandler::HandleEvents();
 	
-	//clean up and exit
-	cburggie::logger("calling SDL_RemoveTimer...");
-	SDL_RemoveTimer(FrameUpdateAndRenderTimer);
-
-	cburggie::logger("calling cburggie::Window::close()...");
-	window->close(); //deletes all associated elements
-
-	cburggie::logger("deleting cburggie::Window object...");
-	delete window;
-
-	cburggie::logger("calling cburggie::Font::Quit()...");
-	cburggie::Font::Quit();
-
-	cburggie::logger("calling IMG_Quit()...");
-	IMG_Quit();
-
-	cburggie::logger("calling SDL_Quit()...");
-	SDL_Quit();
 
 	window = NULL;
 	text = NULL;
