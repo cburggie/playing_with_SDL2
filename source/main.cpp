@@ -10,6 +10,7 @@
 #include <string>
 
 #include <cburggie.h>
+#include <EventHandler.h>
 
 /*
 static SDL_Window * window = NULL;
@@ -44,12 +45,14 @@ static void loop()
 			text->getDrawY() + text->getDrawHeight() + dy > window->getHeight())
 	{
 		dy *= -1;
+		EventHandler::PushEvent(EventHandler::event::WALL_COLLIDE);
 	}
 
 	if (text->getDrawX() + dx < 0 ||
 			text->getDrawX() + text->getDrawWidth() + dx > window->getWidth())
 	{
 		dx *= -1;
+		EventHandler::PushEvent(EventHandler::event::WALL_COLLIDE);
 	}
 
 	text->moveDrawPosition(dy,dx);
@@ -64,28 +67,6 @@ static void render()
 	window->clear();
 	window->drawAll();
 	window->present();
-}
-
-
-
-
-
-static Uint32 FrameUpdateAndRenderEventID = 0;
-static Uint32 UserEventPusher(Uint32 interval, void* eventID_ptr)
-{
-	SDL_Event event;
-	SDL_UserEvent userevent;
-
-	userevent.type = SDL_USEREVENT;
-	userevent.code = *((Uint32*) eventID_ptr);
-	userevent.data1 = NULL;
-	userevent.data2 = NULL;
-
-	event.type = SDL_USEREVENT;
-	event.user = userevent;
-
-	SDL_PushEvent(&event);
-	return interval;
 }
 
 
@@ -143,50 +124,30 @@ int main(int argc, char * argv[])
 
 	font.close();
 
-
+	EventHandler::Init();
 	//setup a timer to create a SDL_USEREVENT regularly
-	FrameUpdateAndRenderEventID = SDL_RegisterEvents(1);
 	SDL_TimerID FrameUpdateAndRenderTimer = SDL_AddTimer(
-				frame_delay_ms,
-				UserEventPusher,
-				(void*)(&FrameUpdateAndRenderEventID)
-			);
+		frame_delay_ms,
+		[] (Uint32 interval, void*param) {
+			EventHandler::PushEvent(EventHandler::event::FRAME_UPDATE);
+			return interval;
+		},
+		nullptr
+	);
 
-	if (FrameUpdateAndRenderTimer == 0)
-	{
-		cburggie::logger("SDL_AddTimer() failed");
-	}
-
-
-
-	//run until SDL_QUIT, catch userevents and handle them
-	SDL_Event event;
-	bool running = true;
-	while (running)
-	{
+	EventHandler::RegisterEvent(EventHandler::event::FRAME_UPDATE, [] {
+		loop();
 		render();
+	});
 
-		SDL_WaitEvent(&event);
-		switch (event.type)
-		{
-			case SDL_QUIT:
-				cburggie::logger("SDL_QUIT event received");
-				running = false;
-				break;
-			case SDL_USEREVENT:
-				if (event.user.type == FrameUpdateAndRenderEventID)
-				{
-					loop();
-					render();
-				}
-				break;
-			default:
-				break;
-		}
-	}
+	EventHandler::RegisterEvent(EventHandler::event::WALL_COLLIDE, [] {
+		std::cout << "boop\n";
+	});
+	
+	render();
 
-
-
+	EventHandler::HandleEvents();
+	
 	//clean up and exit
 	cburggie::logger("calling SDL_RemoveTimer...");
 	SDL_RemoveTimer(FrameUpdateAndRenderTimer);

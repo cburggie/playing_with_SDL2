@@ -26,5 +26,6 @@ namespace cburggie
 #include "cburggie_Window.h"
 #include "cburggie_Element.h"
 #include "cburggie_Logger.h"
+#include "EventHandler.h"
 
 #endif
