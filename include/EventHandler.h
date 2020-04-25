@@ -11,7 +11,7 @@ namespace EventHandler
 		event1 = __COUNTER__,
 		event2 = __COUNTER__,
 	};
-	const signed long eventCount = __COUNTER__-1;
+	const signed long eventCount = __COUNTER__;
 
 	// variables
 	extern unsigned long eventType;
