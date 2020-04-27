@@ -45,9 +45,11 @@ int EventHandler::PushEvent(event e) {
 
 // private - handles the SDL event by calling all of our events
 void EventHandler::DispatchEvents(EventHandler::event e, SDL_Event *eventData) {
-	for each (std::function<void(SDL_Event *)>callback in registeredEvents[(signed long)e])
+	for (auto callback = registeredEvents[(signed long)e].begin();
+	     callback != registeredEvents[(signed long) e].end();
+	     ++callback)
 	{
-		callback(eventData);
+		(*callback)(eventData);
 	}
 }
 
