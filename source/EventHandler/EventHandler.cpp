@@ -28,7 +28,7 @@ bool EventHandler::RegisterEvent(event e, std::function<void(void)> callback) {
 }
 
 // fires a custom event
-bool EventHandler::PushEvent(event e) {
+int EventHandler::PushEvent(event e) {
 	SDL_Event sdl_event;
 	SDL_UserEvent sdl_userevent;
 
@@ -54,11 +54,7 @@ void EventHandler::DispatchEvents(EventHandler::event e, SDL_Event *eventData) {
 // init the SDL event library
 bool EventHandler::Init() {
 	eventType = SDL_RegisterEvents(1);
-	if (eventType == 0xFFFFFFFF) {
-		return false;
-	}
-	EventHandler::eventType = eventType;
-	return true;
+	return (eventType != 0xFFFFFFFF);
 }
 
 // main loop to capture events

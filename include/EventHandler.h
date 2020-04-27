@@ -71,7 +71,7 @@ namespace EventHandler
 	bool RegisterEvent(EventHandler::event e, std::function<void (SDL_Event*)>);
 	bool RegisterEvent(EventHandler::event e, std::function<void (void)>);
 	//**FIXME** can we (do we need) an UnregisterEvent(...)?
-	bool PushEvent(EventHandler::event e);
+	int PushEvent(EventHandler::event e);
 	void DispatchEvents(EventHandler::event e, SDL_Event *eventData);
 	bool Init();
 	bool HandleEvents();
