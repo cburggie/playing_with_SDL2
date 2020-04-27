@@ -9,9 +9,6 @@ EXE  = playing_with_SDL2
 
 # header file
 HDR  = ${ID}/cburggie.h
-HDR += ${ID}/cburggie_App.h
-HDR += ${ID}/cburggie_Font.h
-HDR += ${ID}/cburggie_Logger.h
 
 # object files to build
 OBJ  = ${BD}/main.o
@@ -21,6 +18,7 @@ OBJ += ${BD}/Font.o
 OBJ += ${BD}/Logger.o
 OBJ += ${BD}/Window.o
 OBJ += ${BD}/Element.o
+OBJ += ${BD}/EventHandler.o
 
 LIB  = -L/usr/lib
 LIB += -lpthread
@@ -57,17 +55,20 @@ ${BD}/main.o: ${SD}/main.cpp ${HDR}
 ${BD}/constants.o: ${SD}/constants.cpp ${HDR}
 	${CC} -o $@ -c $<
 
-${BD}/App.o: ${SD}/App/App.cpp ${HDR}
+${BD}/App.o: ${SD}/App/App.cpp ${HDR} ${ID}/cburggie_App.h
 	${CC} -o $@ -c $<
 
-${BD}/Font.o: ${SD}/Font/Font.cpp ${HDR}
+${BD}/Font.o: ${SD}/Font/Font.cpp ${HDR} ${ID}/cburggie_Font.h
 	${CC} -o $@ -c $<
 
-${BD}/Logger.o: ${SD}/Logger/Logger.cpp ${HDR}
+${BD}/Logger.o: ${SD}/Logger/Logger.cpp ${HDR} ${ID}/cburggie_Logger.h
 	${CC} -o $@ -c $<
 
-${BD}/Window.o: ${SD}/Window/Window.cpp ${HDR}
+${BD}/Window.o: ${SD}/Window/Window.cpp ${HDR} ${ID}/cburggie_Element.h
 	${CC} -o $@ -c $<
 
-${BD}/Element.o: ${SD}/Element/Element.cpp ${HDR}
+${BD}/Element.o: ${SD}/Element/Element.cpp ${HDR} ${ID}/cburggie_Element.h
+	${CC} -o $@ -c $<
+
+${BD}/EventHandler.o: ${SD}/EventHandler/EventHandler.cpp ${HDR} ${ID}/EventHandler.h
 	${CC} -o $@ -c $<
